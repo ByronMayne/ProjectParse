@@ -111,5 +111,25 @@ namespace ProjectParseTests
                 Console.WriteLine("Parsed: " + block.ToString());
             }
         }
+
+        [TestMethod]
+        [Description("Tests to see if we can parse out the minimum visual studio version")]
+        public void ParseMinVisualStudioVersion()
+        {
+            string solutionPath = solutionExamplesDirectory + "BasicSolution.sln";
+            Console.WriteLine("Examples Dir: " + solutionPath);
+            Solution parsedSolution = Solution.Read(solutionPath);
+            Assert.AreEqual(parsedSolution.minimumVisualStudioVersion, "10.0.40219.1");
+        }
+
+        [TestMethod]
+        [Description("Tests to see if we can parse out the visual studio version")]
+        public void ParseVisualStudioVersion()
+        {
+            string solutionPath = solutionExamplesDirectory + "BasicSolution.sln";
+            Console.WriteLine("Examples Dir: " + solutionPath);
+            Solution parsedSolution = Solution.Read(solutionPath);
+            Assert.AreEqual(parsedSolution.visualStudioVersion, "15.0.26430.16");
+        }
     }
 }
