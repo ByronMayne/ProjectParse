@@ -2,7 +2,7 @@
 
 namespace ProjectParse.Solution
 {
-    internal struct PersistenceBlock
+    public struct PersistenceBlock
     {
         public string guid;
         public string typeGuid;

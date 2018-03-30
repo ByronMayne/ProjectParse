@@ -1,13 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectParse.Solution
+namespace ProjectParse.SolutionContent
 {
-    internal class PersistenceBlocks
+    public class PersistenceBlocks
     {
         /// <summary>
         /// This list of all blocks included in this project;
         /// </summary>
         private IList<PersistenceBlock> _blocks;
+
+        /// <summary>
+        /// Creates a new instance of a persistence blocks
+        /// </summary>
+        internal PersistenceBlocks()
+        {
+            _blocks = new List<PersistenceBlock>();
+        }
 
         /// <summary>
         /// Adds a new persistence block to the solution.
@@ -33,7 +41,7 @@ namespace ProjectParse.Solution
         {
             for (int i = 0; i < _blocks.Count; i++)
             {
-                if(_blocks[i] == block)
+                if (_blocks[i] == block)
                 {
                     _blocks.RemoveAt(i);
                     return true;
