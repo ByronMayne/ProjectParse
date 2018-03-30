@@ -10,6 +10,9 @@ namespace ProjectParse.SolutionContent
         private string _filePath;
         private string _name;
         private string _extension;
+        private string _visualStudioVersion;
+        private string _minimumVisualStudioVersion;
+
         private PersistenceBlocks _blocks;
 
         /// <summary>
@@ -26,6 +29,24 @@ namespace ProjectParse.SolutionContent
         public string filePath
         {
             get { return _filePath; }
+        }
+
+        /// <summary>
+        /// Gets or sets the visual studio version
+        /// </summary>
+        public string visualStudioVersion
+        {
+            get { return _visualStudioVersion; }
+            set { _visualStudioVersion = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the minimum visual studio version.
+        /// </summary>
+        public string minimumVisualStudioVersion
+        {
+            get { return _minimumVisualStudioVersion; }
+            set { _minimumVisualStudioVersion = value; }
         }
 
         /// <summary>
