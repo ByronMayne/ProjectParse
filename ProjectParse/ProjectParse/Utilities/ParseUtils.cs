@@ -34,6 +34,15 @@
 
                 if (c == '=')
                 {
+                    i++;
+
+                    if(i >= text.Length)
+                    {
+                        return string.Empty;
+                    }
+
+                    c = text[i];
+
                     // Remove white space 
                     while (char.IsWhiteSpace(c))
                     {

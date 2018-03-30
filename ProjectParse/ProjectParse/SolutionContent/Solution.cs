@@ -116,11 +116,11 @@ namespace ProjectParse.SolutionContent
 
                     if (text.StartsWith("VisualStudioVersion"))
                     {
-
+                        _visualStudioVersion = ParseUtils.GetVariableValue(text);
                     }
                     else if (text.StartsWith("MinimumVisualStudioVersion"))
                     {
-
+                        _minimumVisualStudioVersion = ParseUtils.GetVariableValue(text);
                     }
                     else if (text.StartsWith("Project"))
                     {
