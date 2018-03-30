@@ -9,6 +9,7 @@ namespace ProjectParse.SolutionContent
         public string typeGuid;
         public string instanceID;
         public string path;
+ 
 
         /// <summary>
         /// Checks to see if a block equals this one.
@@ -101,6 +102,19 @@ namespace ProjectParse.SolutionContent
             }
 
             return block;
+        }
+
+        /// <summary>
+        /// Formats this PersistenceBlock for writing
+        /// </summary>
+        /// <returns></returns>
+        internal string WriteDefinition()
+        {
+            string format = "Project(\"{0}\") = \"{1}\", \"{2}\", \"{3}\"";
+            string definition = string.Format(format, typeGuid, instanceID, path, guid);
+            definition += '\n';
+            definition += "EndProject";
+            return definition;
         }
 
         public override string ToString()
