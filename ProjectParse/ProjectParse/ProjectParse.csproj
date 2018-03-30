@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SolutionContent\Variable.cs" />
     <Compile Include="Utilities\ParseUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolutionContent\PersistenceBlock.cs" />

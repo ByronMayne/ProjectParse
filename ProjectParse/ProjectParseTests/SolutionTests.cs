@@ -119,7 +119,7 @@ namespace ProjectParseTests
             string solutionPath = solutionExamplesDirectory + "BasicSolution.sln";
             Console.WriteLine("Examples Dir: " + solutionPath);
             Solution parsedSolution = Solution.Read(solutionPath);
-            Assert.AreEqual(parsedSolution.minimumVisualStudioVersion, "10.0.40219.1");
+            Assert.AreEqual(parsedSolution.minimumVisualStudioVersion.Value, "10.0.40219.1");
         }
 
         [TestMethod]
@@ -129,7 +129,7 @@ namespace ProjectParseTests
             string solutionPath = solutionExamplesDirectory + "BasicSolution.sln";
             Console.WriteLine("Examples Dir: " + solutionPath);
             Solution parsedSolution = Solution.Read(solutionPath);
-            Assert.AreEqual(parsedSolution.visualStudioVersion, "15.0.26430.16");
+            Assert.AreEqual(parsedSolution.visualStudioVersion.Value, "15.0.26430.16");
         }
     }
 }

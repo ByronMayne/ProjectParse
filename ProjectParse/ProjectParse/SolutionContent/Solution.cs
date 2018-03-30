@@ -19,8 +19,8 @@ namespace ProjectParse.SolutionContent
         private string _filePath;
         private string _name;
         private string _extension;
-        private string _visualStudioVersion;
-        private string _minimumVisualStudioVersion;
+        private Variable _visualStudioVersion;
+        private Variable _minimumVisualStudioVersion;
 
         private PersistenceBlocks _blocks;
 
@@ -43,7 +43,7 @@ namespace ProjectParse.SolutionContent
         /// <summary>
         /// Gets or sets the visual studio version
         /// </summary>
-        public string visualStudioVersion
+        public Variable visualStudioVersion
         {
             get { return _visualStudioVersion; }
             set { _visualStudioVersion = value; }
@@ -52,7 +52,7 @@ namespace ProjectParse.SolutionContent
         /// <summary>
         /// Gets or sets the minimum visual studio version.
         /// </summary>
-        public string minimumVisualStudioVersion
+        public Variable minimumVisualStudioVersion
         {
             get { return _minimumVisualStudioVersion; }
             set { _minimumVisualStudioVersion = value; }
@@ -116,11 +116,17 @@ namespace ProjectParse.SolutionContent
 
                     if (text.StartsWith("VisualStudioVersion"))
                     {
-                        _visualStudioVersion = ParseUtils.GetVariableValue(text);
+                        Variable variable = new Variable();
+                        variable.Name = "VisualStudioVersion";
+                        variable.Value = ParseUtils.GetVariableValue(text);
+                        _visualStudioVersion = variable;
                     }
                     else if (text.StartsWith("MinimumVisualStudioVersion"))
                     {
-                        _minimumVisualStudioVersion = ParseUtils.GetVariableValue(text);
+                        Variable variable = new Variable();
+                        variable.Name = "MinimumVisualStudioVersion";
+                        variable.Value = ParseUtils.GetVariableValue(text);
+                        _minimumVisualStudioVersion = variable;
                     }
                     else if (text.StartsWith("Project"))
                     {
