@@ -13,8 +13,13 @@ namespace ProjectParseTests
             get
             {
                 string directory = Directory.GetCurrentDirectory();
-                return directory += "../../../";
+                return directory += "\\..\\..\\..\\";
             }
+        }
+
+        private string solutionExamplesDirectory
+        {
+            get { return projectDirectory + "\\ProjectParseTests\\TestFiles\\"; }
         }
 
         [TestMethod]
@@ -58,7 +63,9 @@ namespace ProjectParseTests
         [Description("We should be able to load a solution if it's valid")]
         public void ReadSolution()
         {
+            Console.WriteLine("Project Directory: " + projectDirectory);
             string slnPath = Directory.GetFiles(projectDirectory, "*.sln", SearchOption.TopDirectoryOnly)[0];
+            Console.WriteLine("SlnPath: " + slnPath);
             Solution solution = Solution.Read(slnPath);
             Assert.IsNotNull(solution, "We created a valid solution path however we did not create a Solution instance");
         }
@@ -88,6 +95,21 @@ namespace ProjectParseTests
                 caughtException = e;
             }
             Assert.IsInstanceOfType(caughtException, typeof(ArgumentException), "We should have got an exception for naming an Solution an empty string");
+        }
+
+        [TestMethod]
+        [Description("When we create a solution but don't give it a name we should get argument null exception")]
+        public void ParsePersistenceBlocks()
+        {
+            string solutionPath = solutionExamplesDirectory + "BasicSolution.sln";
+            Console.WriteLine("Examples Dir: " + solutionPath);
+            Solution parsedSolution = Solution.Read(solutionPath);
+            Assert.AreEqual(2, parsedSolution.blocks.count, "We should have parsed out two projects");
+
+            foreach(PersistenceBlock block in parsedSolution.blocks)
+            {
+                Console.WriteLine("Parsed: " + block.ToString());
+            }
         }
     }
 }

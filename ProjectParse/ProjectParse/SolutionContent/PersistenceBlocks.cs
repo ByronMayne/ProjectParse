@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ProjectParse.SolutionContent
 {
-    public class PersistenceBlocks
+    public class PersistenceBlocks : IEnumerable<PersistenceBlock>
     {
         /// <summary>
         /// This list of all blocks included in this project;
@@ -15,6 +16,14 @@ namespace ProjectParse.SolutionContent
         internal PersistenceBlocks(Solution soloution)
         {
             _blocks = new List<PersistenceBlock>();
+        }
+
+        /// <summary>
+        /// Returns back the number of blocks we have in this solution.
+        /// </summary>
+        public int count
+        {
+            get { return _blocks.Count; }
         }
 
         /// <summary>
@@ -32,6 +41,7 @@ namespace ProjectParse.SolutionContent
             return true;
         }
 
+
         /// <summary>
         /// Removes a persistence block from the solution.
         /// </summary>
@@ -48,6 +58,22 @@ namespace ProjectParse.SolutionContent
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Allows the user to iterate over all blocks.
+        /// </summary>
+        public IEnumerator<PersistenceBlock> GetEnumerator()
+        {
+            return _blocks.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Allows the user to iterate over all blocks.
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _blocks.GetEnumerator();
         }
     }
 }

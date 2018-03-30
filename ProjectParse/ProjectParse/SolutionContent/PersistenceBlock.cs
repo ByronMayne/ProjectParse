@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace ProjectParse.SolutionContent
 {
@@ -51,29 +51,31 @@ namespace ProjectParse.SolutionContent
             PersistenceBlock block = new PersistenceBlock();
 
             // Create a reader 
-            StreamReader reader = new StreamReader(text);
+            Console.WriteLine("Reading: " + text);
 
             int fieldIndex = 0;
             int index = 0;
-            while(!reader.EndOfStream)
+            while(index < text.Length)
             {
                 int start = 0;
                 int length = 0;
-                char c = (char)reader.Read();
-                
-                if(c == '"')
+                char c = text[index];
+
+                if (c == '"')
                 {
-                    start = index;
+                    start = index + 1;
                     do
                     {
                         index++;
                         length++;
-                    } while (c == '"');
+                        c = text[index];
+                    } while (c != '"');
+
+                    length -= 1;
 
                     if(length > 0)
                     {
                         string content = text.Substring(start, length);
-
                         switch(fieldIndex)
                         {
                             case 0: block.typeGuid = content; break;
@@ -81,24 +83,29 @@ namespace ProjectParse.SolutionContent
                             case 2: block.path = content; break;
                             case 3: block.typeGuid = content; break;
                         }
-                        fieldIndex++;
-                        if(fieldIndex > 3)
+                        if(fieldIndex >= 3)
                         {
                             // All fields assigned 
                             break;
                         }
+                        fieldIndex++;
                     }
                 }
 
                 index++;
             }
 
-            if (fieldIndex >= 3)
+            if (fieldIndex > 3)
             {
                 throw new ParseException("Unable to parse all fields of Persistence Block. Expect four but found " + fieldIndex);
             }
 
             return block;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Instance ID: '{0}' TypeGUID: '{1}' GUID: '{2}' Path: '{3}'", instanceID, typeGuid, guid, path);
         }
 
         public static bool operator ==(PersistenceBlock lhs, PersistenceBlock rhs)
