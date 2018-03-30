@@ -3,6 +3,14 @@ using System.IO;
 
 namespace ProjectParse.SolutionContent
 {
+    public class ParseException : Exception
+    {
+        public ParseException(string expected) : base(expected)
+        {
+
+        }
+    }
+
     public class Solution
     {
         private static readonly string[] supportedExtensions;
@@ -130,7 +138,17 @@ namespace ProjectParse.SolutionContent
         /// </summary>
         private void ParsePersistenceBlock(StreamReader reader, string text, ref int line)
         {
-        
+            string closeTag = reader.ReadLine();
+            if(!string.Equals(closeTag, "EndProject"))
+            {
+                throw new ParseException("Expected closing tag 'EndProject' on line " + (line + 1));
+            }
+            // Parse the block
+            PersistenceBlock block = PersistenceBlock.Parse(text);
+            // Add it
+            _blocks.Add(block);
+            // We skipped a line so move next
+            line++; 
         }
 
         /// <summary>
@@ -138,6 +156,7 @@ namespace ProjectParse.SolutionContent
         /// </summary>
         private void ParseGlobals(StreamReader reader, string text, ref int line)
         {
+
         }
 
         /// <summary>

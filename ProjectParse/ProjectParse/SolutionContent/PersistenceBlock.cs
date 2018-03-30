@@ -37,6 +37,18 @@ namespace ProjectParse.SolutionContent
             }
             return hash;
         }
+        
+        /// <summary>
+        /// Given a line of text this function will parse it and create a persistence block
+        /// </summary>
+        /// <param name="text">The text you want to parse</param>
+        /// <returns>The parsed block</returns>
+        internal static PersistenceBlock Parse(string text)
+        {
+            PersistenceBlock block = new PersistenceBlock();
+
+            return block;
+        }
 
         public static bool operator ==(PersistenceBlock lhs, PersistenceBlock rhs)
         {
