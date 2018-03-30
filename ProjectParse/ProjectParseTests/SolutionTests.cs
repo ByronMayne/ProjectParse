@@ -8,6 +8,15 @@ namespace ProjectParseTests
     [TestClass]
     public class SolutionTests
     {
+        private string projectDirectory
+        {
+            get
+            {
+                string directory = Directory.GetCurrentDirectory();
+                return directory += "../../../";
+            }
+        }
+
         [TestMethod]
         [Description("We should get an exception if we try to read a solution that does not exist.")]
         public void ReadMissingException()
@@ -32,10 +41,8 @@ namespace ProjectParseTests
             Exception thrownException = null;
             try
             {
-                // Get the current directory 
-                string directory = Directory.GetCurrentDirectory();
                 // Get the first cs file 
-                string file = Directory.GetFiles(directory, "*.cs", SearchOption.AllDirectories)[0];
+                string file = Directory.GetFiles(projectDirectory, "*.cs", SearchOption.AllDirectories)[0];
                 // Read it (since it's valid but the wrong extension.
                 Solution.Read(file);
             }
@@ -51,8 +58,7 @@ namespace ProjectParseTests
         [Description("We should be able to load a solution if it's valid")]
         public void ReadSolution()
         {
-            string path = Directory.GetCurrentDirectory();
-            string slnPath = Directory.GetFiles(path, "*.sln", SearchOption.TopDirectoryOnly)[0];
+            string slnPath = Directory.GetFiles(projectDirectory, "*.sln", SearchOption.TopDirectoryOnly)[0];
             Solution solution = Solution.Read(slnPath);
             Assert.IsNotNull(solution, "We created a valid solution path however we did not create a Solution instance");
         }
@@ -66,7 +72,7 @@ namespace ProjectParseTests
             {
                 Solution.Create(null);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 caughtException = e;
             }

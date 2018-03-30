@@ -1,13 +1,15 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 
 namespace ProjectParse.SolutionContent
 {
     public class Solution
     {
+        private static readonly string[] supportedExtensions;
+
         private string _filePath;
         private string _name;
+        private string _extension;
         private PersistenceBlocks _blocks;
 
         /// <summary>
@@ -44,6 +46,14 @@ namespace ProjectParse.SolutionContent
         }
 
         /// <summary>
+        /// Initializes our static values.
+        /// </summary>
+        static Solution()
+        {
+            supportedExtensions = new string[] { ".sln" };
+        }
+
+        /// <summary>
         /// Creates a new instance of a Solution by parsing a existing one
         /// from disk.
         /// </summary>
@@ -51,6 +61,9 @@ namespace ProjectParse.SolutionContent
         private Solution(string filePath)
         {
             _blocks = new PersistenceBlocks(this);
+            _extension = Path.GetExtension(filePath);
+            // Make sure it's supported
+            ValidateSolutionExtension(_extension);
             Parse(filePath);
         }
 
@@ -74,6 +87,7 @@ namespace ProjectParse.SolutionContent
             {
                 throw new FileNotFoundException("Unable to find Solution at given path", filePath);
             }
+
             return new Solution(filePath);
         }
 
@@ -92,6 +106,27 @@ namespace ProjectParse.SolutionContent
             newSolution._name = name;
             newSolution._filePath = string.Empty;
             return newSolution;
+        }
+
+        /// <summary>
+        /// Checks to make sure that the extension is supported and if it's not
+        /// we throw an exception
+        /// </summary>
+        /// <param name="extension">The extension you want to check</param>
+        /// <exception cref="System.IO.FileLoadException"/>
+        private void ValidateSolutionExtension(string extension)
+        {
+            for(int i = 0; i < supportedExtensions.Length; i++)
+            {
+                if(string.Equals(supportedExtensions[i], extension, StringComparison.Ordinal))
+                {
+                    return; 
+                }
+            }
+
+            string message = "Unable to Solution as it has an unsupported extension of '" + extension + "'. The supported types are ";
+            message += string.Join(", ", supportedExtensions);
+            throw new FileLoadException(message);
         }
     }
 }
