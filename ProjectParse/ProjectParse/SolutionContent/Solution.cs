@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectParse.Utilities;
+using System;
 using System.IO;
 
 namespace ProjectParse.SolutionContent
@@ -109,8 +110,10 @@ namespace ProjectParse.SolutionContent
                 {
                     // Read the current line
                     string text = reader.ReadLine();
-                    
-                    if(text.StartsWith("VisualStudioVersion"))
+                    // Remove white space 
+                    text = ParseUtils.RemoveLeadingWhiteSpace(text);
+
+                    if (text.StartsWith("VisualStudioVersion"))
                     {
 
                     }
