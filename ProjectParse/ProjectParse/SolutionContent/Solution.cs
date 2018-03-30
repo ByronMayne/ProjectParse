@@ -94,7 +94,50 @@ namespace ProjectParse.SolutionContent
         /// <param name="filePath">The file path to the existing solution.</param>
         private void Parse(string filePath)
         {
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                int lineNumber = 0;
+                while(!reader.EndOfStream)
+                {
+                    // Read the current line
+                    string text = reader.ReadLine();
+                    
+                    if(text.StartsWith("VisualStudioVersion"))
+                    {
 
+                    }
+                    else if (text.StartsWith("MinimumVisualStudioVersion"))
+                    {
+
+                    }
+                    else if (text.StartsWith("Project"))
+                    {
+                        ParsePersistenceBlock(reader, text, ref lineNumber);
+                    }
+                    else if (text.StartsWith("Global"))
+                    {
+                        ParseGlobals(reader, text, ref lineNumber);
+                    }
+
+                    lineNumber++;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Takes in line of takes and parses out the persistence block and the closing
+        /// project tag. 
+        /// </summary>
+        private void ParsePersistenceBlock(StreamReader reader, string text, ref int line)
+        {
+        
+        }
+
+        /// <summary>
+        /// Parses all the global settings
+        /// </summary>
+        private void ParseGlobals(StreamReader reader, string text, ref int line)
+        {
         }
 
         /// <summary>
