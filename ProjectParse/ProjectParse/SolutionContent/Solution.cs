@@ -94,6 +94,7 @@ namespace ProjectParse.SolutionContent
             _extension = Path.GetExtension(filePath);
             // Make sure it's supported
             ValidateSolutionExtension(_extension);
+            _name = Path.GetFileNameWithoutExtension(filePath);
             Parse(filePath);
         }
 
