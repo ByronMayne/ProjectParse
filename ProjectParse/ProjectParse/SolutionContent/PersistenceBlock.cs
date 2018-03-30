@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectParse.Solution
+namespace ProjectParse.SolutionContent
 {
     public struct PersistenceBlock
     {
