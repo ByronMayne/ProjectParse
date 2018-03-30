@@ -82,11 +82,11 @@ namespace ProjectParse.SolutionContent
         /// </summary>
         /// <param name="name">The name of the solution</param>
         /// <returns>The new instance that was created</returns>
-        public Solution Create(string name)
+        public static Solution Create(string name)
         {
             if(string.IsNullOrEmpty(name))
             {
-                throw new ArgumentNullException("name", "You must give a name when creating a new solution");
+                throw new ArgumentException("name", "You must give a name when creating a new solution");
             }
             Solution newSolution = new Solution();
             newSolution._name = name;
