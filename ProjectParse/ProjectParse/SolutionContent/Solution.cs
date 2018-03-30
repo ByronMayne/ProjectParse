@@ -40,7 +40,7 @@ namespace ProjectParse.SolutionContent
         /// </summary>
         private Solution()
         {
-
+            _blocks = new PersistenceBlocks(this);
         }
 
         /// <summary>
@@ -50,6 +50,7 @@ namespace ProjectParse.SolutionContent
         /// <param name="filePath"></param>
         private Solution(string filePath)
         {
+            _blocks = new PersistenceBlocks(this);
             Parse(filePath);
         }
 

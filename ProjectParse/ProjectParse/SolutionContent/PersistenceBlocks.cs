@@ -12,7 +12,7 @@ namespace ProjectParse.SolutionContent
         /// <summary>
         /// Creates a new instance of a persistence blocks
         /// </summary>
-        internal PersistenceBlocks(Soloution soloution)
+        internal PersistenceBlocks(Solution soloution)
         {
             _blocks = new List<PersistenceBlock>();
         }
